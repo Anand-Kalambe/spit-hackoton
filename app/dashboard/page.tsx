@@ -20,6 +20,7 @@ import {
   Activity,
   History,
   Settings,
+  Warehouse,
 } from "lucide-react"
 
 // Types
@@ -150,7 +151,7 @@ export default function InventoryDashboard() {
 
   const transfers = apiTransfers || [
     {
-      from: { name: "Main Warehouse" },
+      from: { name: "North Powerhouse" },
       to: { name: "North Hub" },
       status: "READY",
       id: 1,
@@ -188,18 +189,18 @@ export default function InventoryDashboard() {
     },
     {
       name: "Stock",
-      url: "#",
+      url: "/stock",
       icon: Package,
     },
     {
       name: "Move History",
-      url: "#",
+      url: "/history",
       icon: History,
     },
     {
-      name: "Settings",
-      url: "#",
-      icon: Settings,
+      name: "Warehouse",
+      url: "/warehouse",
+      icon: Warehouse,
     },
   ]
 
@@ -207,7 +208,7 @@ export default function InventoryDashboard() {
     {
       id: 1,
       className: "md:col-span-1",
-      thumbnail: "/warehouse-receiving-dock.jpg",
+      thumbnail: "/receipts.jpg",
       content: (
         <div className="content-wrapper h-full">
           <div className="summary-view h-full">
@@ -276,7 +277,7 @@ export default function InventoryDashboard() {
     {
       id: 2,
       className: "md:col-span-1",
-      thumbnail: "/delivery-truck-loading.jpg",
+      thumbnail: "/delivery-truck-loading.webp",
       content: (
         <div className="content-wrapper h-full">
           <div className="summary-view h-full">
@@ -319,7 +320,7 @@ export default function InventoryDashboard() {
     {
       id: 3,
       className: "md:col-span-1",
-      thumbnail: "/warehouse-racks-and-shelves.jpg",
+      thumbnail: "/internal_transfer.avif",
       content: (
         <div className="content-wrapper h-full">
           <div className="summary-view h-full">
@@ -375,7 +376,7 @@ export default function InventoryDashboard() {
     {
       id: 4,
       className: "md:col-span-1",
-      thumbnail: "/empty-warehouse-shelves.jpg",
+      thumbnail: "/low_stock.avif",
       content: (
         <div className="content-wrapper h-full">
           <div className="summary-view h-full">
@@ -416,14 +417,14 @@ export default function InventoryDashboard() {
   ]
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-20">
-      <NavBar items={navItems} className="sticky top-4" />
+    <div className="min-h-screen bg-background text-foreground pb-20 overflow-x-clip">
+      <NavBar items={navItems} className="sticky top-4 z-50" />
 
       <main className="max-w-7xl mx-auto px-4 md:px-10 space-y-8 mt-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-foreground tracking-tight">Overview</h1>
+            <h1 className="text-4xl font-bold text-primary-foreground tracking-tight">Overview</h1>
             <p className="text-foreground/70 text-lg">Warehouse Activity Summary</p>
           </div>
           <div className="flex items-center gap-2 bg-secondary/30 p-1 rounded-lg border border-border">

@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+#__next_dev_indicator__ {
+  display: none !important;
+}
+
+
 :root {
   /* Custom color scheme with brown/copper gradients */
   --background: #44291a;
@@ -119,13 +124,28 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
-    /* Updated background to a lighter gradient mixture of the 3 theme colors */
-    background: linear-gradient(135deg, #44291a 0%, #a15c48 45%, #f7d6cf 100%);
+    /* Full-screen diagonal gradient */
+    background: linear-gradient(
+      135deg,
+      #44291a 0%,
+      #a15c48 40%,
+      #f7d6cf 100%
+    );
     background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
     @apply text-foreground;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  /* Optional: add subtle overlay for better contrast with cards */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.1); /* soft dark overlay */
+    pointer-events: none;
   }
 }
