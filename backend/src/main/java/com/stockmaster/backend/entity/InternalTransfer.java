@@ -1,10 +1,14 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "internal_transfer")
 public class InternalTransfer {
 
@@ -24,11 +28,4 @@ public class InternalTransfer {
     @Column(nullable = false, length = 20)
     private TransferStatus status;
 
-    public InternalTransfer() {}
-
-    public InternalTransfer(Warehouse from, Warehouse to, TransferStatus status) {
-        this.from = from;
-        this.to = to;
-        this.status = status;
-    }
 }

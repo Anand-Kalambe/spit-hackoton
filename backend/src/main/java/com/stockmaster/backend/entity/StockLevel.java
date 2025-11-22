@@ -1,13 +1,16 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+@Data
 @Entity
 @Table(name = "stock_level")
+@NoArgsConstructor
 public class StockLevel {
 
     @EmbeddedId
@@ -29,9 +32,6 @@ public class StockLevel {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Instant updatedAt = Instant.now();
-    
-    public StockLevel() {
-    }
 
     // Helper constructor for easy initialization in service layer
     public StockLevel(Product product, Location location, BigDecimal quantity) {

@@ -1,11 +1,17 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product")
 public class Product {
 
@@ -42,16 +48,4 @@ public class Product {
     @Column(name = "created_at", updatable = false)
     private java.time.Instant createdAt = java.time.Instant.now();
 
-    public Product() {}
-
-    public Product(String name, String skuCode, ProductCategory category, UnitOfMeasure uom) {
-        this.name = name;
-        this.skuCode = skuCode;
-        this.category = category;
-        this.uom = uom;
-    }
-
-    public Integer getId() {
-        return id;
-    }
 }

@@ -1,10 +1,14 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "warehouse")
 public class Warehouse {
 
@@ -24,12 +28,4 @@ public class Warehouse {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    public Warehouse() {}
-
-    public Warehouse(String name, String code, String address, Boolean isActive) {
-        this.name = name;
-        this.code = code;
-        this.address = address;
-        this.isActive = isActive;
-    }
 }
