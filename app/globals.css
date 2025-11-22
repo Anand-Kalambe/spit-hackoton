@@ -3,8 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+#__next_dev_indicator__ {
+  display: none !important;
+}
+
 :root {
-  /* Custom color scheme with brown/copper gradients */
   --background: #44291a;
   --foreground: #a15c48;
   --foreforeground: #f7d6cf;
