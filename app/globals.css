@@ -121,12 +121,12 @@
 @layer base {
   body {
     /* Full-screen diagonal gradient */
-    background: linear-gradient(
+    /* background: linear-gradient(
       135deg,
       #44291a 0%,
       #a15c48 40%,
       #f7d6cf 100%
-    );
+    ); */
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
