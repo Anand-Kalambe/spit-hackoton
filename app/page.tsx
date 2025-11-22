@@ -1,4 +1,6 @@
 import Image from "next/image";
+import MoveHistory from "./history/page";
+
 
 export default function Home() {
   return (
@@ -58,6 +60,8 @@ export default function Home() {
           >
             Documentation
           </a>
+
+          <MoveHistory />
         </div>
       </main>
     </div>
