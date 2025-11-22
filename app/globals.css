@@ -1,12 +1,12 @@
+@import "tailwindcss";
+
+
 :root {
   --background: #44291a;
   --foreground: #a15c48;
   --foreforeground: #f7d6cf;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @media (prefers-color-scheme: dark) {
   :root {
