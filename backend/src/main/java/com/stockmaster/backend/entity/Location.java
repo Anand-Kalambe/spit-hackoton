@@ -40,4 +40,11 @@ public class Location {
         this.locationType = locationType;
         this.isActive = isActive;
     }
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

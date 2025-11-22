@@ -50,4 +50,8 @@ public class Product {
         this.category = category;
         this.uom = uom;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }
