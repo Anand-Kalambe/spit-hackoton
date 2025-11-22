@@ -1,8 +1,14 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "location", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"warehouse_id", "name"}) // Matches the composite unique constraint in SQL
 })
@@ -29,15 +35,4 @@ public class Location {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    public Location(){
-    }
-
-    public Location(Integer id, Warehouse warehouse, String name, String code, String locationType, Boolean isActive) {
-        this.id = id;
-        this.warehouse = warehouse;
-        this.name = name;
-        this.code = code;
-        this.locationType = locationType;
-        this.isActive = isActive;
-    }
 }

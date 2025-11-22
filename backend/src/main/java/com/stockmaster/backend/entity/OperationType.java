@@ -9,23 +9,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "warehouse")
-public class Warehouse {
+@Table(name = "operation_type")
+public class OperationType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", length = 150, nullable = false, unique = true)
+    @Column(name = "code", length = 50, nullable = false, unique = true)
+    private String code; // e.g., 'RECEIPT', 'DELIVERY', 'TRANSFER', 'ADJUSTMENT'
+
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "code", length = 50, nullable = false, unique = true)
-    private String code;
-
-    @Column(name = "address", columnDefinition = "TEXT")
-    private String address;
-
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
-
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 }

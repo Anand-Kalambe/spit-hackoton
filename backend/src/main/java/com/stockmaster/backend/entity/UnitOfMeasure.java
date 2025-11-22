@@ -1,8 +1,14 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "unit_of_measure")
 public class UnitOfMeasure {
 
@@ -16,12 +22,4 @@ public class UnitOfMeasure {
     @Column(name = "symbol", length = 10, nullable = false, unique = true)
     private String symbol;
 
-    public UnitOfMeasure() {
-
-    }
-
-    public UnitOfMeasure(String name, String symbol) {
-        this.name = name;
-        this.symbol = symbol;
-    }
 }

@@ -1,8 +1,14 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product_category")
 public class ProductCategory {
 
@@ -20,13 +26,4 @@ public class ProductCategory {
     @Column(name = "created_at", updatable = false)
     private java.time.Instant createdAt = java.time.Instant.now();
 
-    public ProductCategory() {
-    }
-
-    public ProductCategory(Integer id, String name, String description, java.time.Instant createdAt) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.createdAt = createdAt;
-    }
 }
