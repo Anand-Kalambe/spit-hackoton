@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MoveHistory from "./history/page";
+import LoginPage from "./login/page";
 
 
 export default function Home() {
@@ -62,6 +63,7 @@ export default function Home() {
           </a>
 
           <MoveHistory />
+          <LoginPage />
         </div>
       </main>
     </div>
