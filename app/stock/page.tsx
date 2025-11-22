@@ -3,6 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Package, X, CheckCircle, AlertCircle, Search, Filter } from 'lucide-react';
 import { api } from '@/services/api';
+import { NavBar } from "@/app/dashboard/components/nav-bar"
+import {
+  TrendingDown,
+  FileText,
+  ArrowRightLeft,
+  LayoutDashboard,
+  Activity,
+  History,
+  Settings,
+  Warehouse,
+} from "lucide-react"
 
 // --- Types ---
 export interface Product {
@@ -32,6 +43,34 @@ const Toast = ({ message, type, onClose }: { message: string; type: 'success' | 
     <button onClick={onClose} className="ml-auto -mx-1.5 -my-1.5 text-gray-400 hover:text-white rounded-lg p-1.5 inline-flex h-8 w-8"><X className="w-5 h-5" /></button>
   </div>
 );
+
+  const navItems = [
+    {
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Delivery",
+      url: "/delivery",
+      icon: Activity,
+    },
+    {
+      name: "Stock",
+      url: "/stock",
+      icon: Package,
+    },
+    {
+      name: "Move History",
+      url: "/history",
+      icon: History,
+    },
+    {
+      name: "Warehouse",
+      url: "/warehouse",
+      icon: Warehouse,
+    },
+  ]
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -142,6 +181,8 @@ export default function Products() {
   };
 
   return (
+<div className="min-h-screen bg-background text-foreground pb-20 overflow-x-clip">
+  <NavBar items={navItems} className="sticky top-4 z-50" />
     <div className="min-h-screen relative font-sans flex items-center justify-center p-4 sm:p-8 bg-[#2A1B12]"> {/* Lighter Background Outside */}
         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
@@ -287,5 +328,6 @@ export default function Products() {
             </div>
         )}
     </div>
+</div>
   );
 }

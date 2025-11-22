@@ -1,6 +1,18 @@
 "use client";
 import Head from 'next/head';
 import { useState, useMemo, use } from 'react'; // Keep these imports for search functionality
+import { NavBar } from "@/app/dashboard/components/nav-bar"
+import {
+    Package,
+  TrendingDown,
+  FileText,
+  ArrowRightLeft,
+  LayoutDashboard,
+  Activity,
+  History,
+  Settings,
+  Warehouse,
+} from "lucide-react"
 
 // Assuming your moveHistoryData is defined here or imported correctly
 // For demonstration, using a simplified version:
@@ -10,6 +22,34 @@ const moveHistoryData = [
   { date: '08/04/2001', moveDate: '01/01/2001', moveType: 'Move Internal', vendorStockist: 'Vendor3', product: 'V3/Stock3', quantity: 20, status: 'Ready', isNew: false },
   { date: '07/04/2001', moveDate: '01/01/2001', moveType: 'Move External', vendorStockist: 'StockistA', product: 'P4/Item', quantity: 12, status: 'Ready', isNew: false },
 ];
+
+  const navItems = [
+    {
+      name: "Dashboard",
+      url: "/",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Operations",
+      url: "#",
+      icon: Activity,
+    },
+    {
+      name: "Stock",
+      url: "/stock",
+      icon: Package,
+    },
+    {
+      name: "Move History",
+      url: "/history",
+      icon: History,
+    },
+    {
+      name: "Warehouse",
+      url: "/warehouse",
+      icon: Warehouse,
+    },
+  ]
 
 
 // Helper component for the Status badge - Adjusted for dark theme
@@ -44,7 +84,8 @@ const MoveHistory = () => {
   }, [searchTerm]);
 
   return (
-    // Main background: dark desaturated brown from the image
+<div className="min-h-screen bg-background text-foreground pb-20 overflow-x-clip">
+  <NavBar items={navItems} className="sticky top-4 z-50" />
     <div className="min-h-screen bg-[#352D2A] p-8 text-gray-100"> 
       <Head>
         <title>Move History - Dashboard</title>
@@ -127,6 +168,7 @@ const MoveHistory = () => {
         </div>
       </div>
     </div>
+</div>
   );
 };
 

@@ -1,8 +1,49 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, List, Package, Truck, X, Pencil, Search, Sliders, Calendar, CornerDownRight, CheckCircle, Clock } from 'lucide-react';
+import { NavBar } from "@/app/dashboard/components/nav-bar"
+import {
+  TrendingDown,
+  FileText,
+  ArrowRightLeft,
+  AlertCircle,
+  LayoutDashboard,
+  Activity,
+  History,
+  Settings,
+  Warehouse,
+} from "lucide-react"
 
 // --- MOCK DATA ---
+
+  const navItems = [
+    {
+      name: "Dashboard",
+      url: "/",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Operations",
+      url: "#",
+      icon: Activity,
+    },
+    {
+      name: "Stock",
+      url: "/stock",
+      icon: Package,
+    },
+    {
+      name: "Move History",
+      url: "/history",
+      icon: History,
+    },
+    {
+      name: "Warehouse",
+      url: "/warehouse",
+      icon: Warehouse,
+    },
+  ]
+
 
 const MOCK_DELIVERIES = [
   { id: 1, reference: 'WH/OUT/0001', from: 'WH/Stock1', to: 'Customer A', contact: 'Azure Interior', scheduledDate: '2025-11-25', status: 'Ready' },
@@ -98,7 +139,9 @@ const DeliveryList = ({ onSelectOrder, onCreateNew }: DeliveryListProps) => {
     d.contact.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return (
+return (
+<div className="min-h-screen bg-background text-foreground pb-20 overflow-x-clip">
+  <NavBar items={navItems} className="sticky top-4 z-50" />
     <div className="p-6 h-full flex flex-col">
       {/* Header and Controls */}
       <div className="flex justify-between items-center mb-6 border-b border-[var(--foreforeground)]/20 pb-4">
@@ -162,6 +205,7 @@ const DeliveryList = ({ onSelectOrder, onCreateNew }: DeliveryListProps) => {
         </table>
       </div>
     </div>
+</div>
   );
 };
 

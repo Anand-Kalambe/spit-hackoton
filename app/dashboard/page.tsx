@@ -151,7 +151,7 @@ export default function InventoryDashboard() {
 
   const transfers = apiTransfers || [
     {
-      from: { name: "Sexy Sexy Sexy" },
+      from: { name: "North Powerhouse" },
       to: { name: "North Hub" },
       status: "READY",
       id: 1,
