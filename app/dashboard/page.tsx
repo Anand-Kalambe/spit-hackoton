@@ -179,7 +179,7 @@ export default function InventoryDashboard() {
   const navItems = [
     {
       name: "Dashboard",
-      url: "/",
+      url: "/dashboard",
       icon: LayoutDashboard,
     },
     {

@@ -82,7 +82,7 @@ export default function Products() {
     const navItems = [
         {
         name: "Dashboard",
-        url: "/",
+        url: "/dashboard",
         icon: LayoutDashboard,
         },
         {

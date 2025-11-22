@@ -12,7 +12,7 @@ export default function History() {
     const navItems = [
     {
       name: "Dashboard",
-      url: "/",
+      url: "/dashboard",
       icon: LayoutDashboard,
     },
     {
