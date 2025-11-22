@@ -1,5 +1,10 @@
 # Marauders of ML - Inventory Management System (IMS)
 
+<p align="center">
+  <video src="assets/Marauders-of-ML.mp4" width="600" controls>
+  </video>
+</p>
+
 ## Overview
 **Marauders of ML** presents a modular **Inventory Management System (IMS)** designed to digitize and streamline stock-related operations for businesses. The goal is to replace manual registers, Excel sheets, and scattered tracking methods with a centralized, real-time, and easy-to-use application.
 
