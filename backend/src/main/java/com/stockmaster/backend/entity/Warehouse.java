@@ -1,7 +1,9 @@
 package com.stockmaster.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "warehouse")
 public class Warehouse {
@@ -22,8 +24,7 @@ public class Warehouse {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    public Warehouse() {
-    }
+    public Warehouse() {}
 
     public Warehouse(String name, String code, String address, Boolean isActive) {
         this.name = name;
