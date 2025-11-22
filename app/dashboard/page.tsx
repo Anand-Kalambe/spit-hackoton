@@ -2,11 +2,25 @@
 
 import type React from "react"
 import { cn } from "@/app/dashboard/lib/utils"
-import CardNav from "@/app/dashboard/components/card-nav"
+import { NavBar } from "@/app/dashboard/components/nav-bar"
 import ScanLoader from "@/app/dashboard/components/scan-loader"
 import { useState, useEffect } from "react"
+import useSWR from "swr"
 import { LayoutGrid } from "@/app/dashboard/components/ui/layout-grid"
-import { Package, TrendingDown, FileText, Truck, ArrowRightLeft, Clock, AlertCircle, CheckCircle } from "lucide-react"
+import {
+  Package,
+  TrendingDown,
+  FileText,
+  Truck,
+  ArrowRightLeft,
+  Clock,
+  AlertCircle,
+  CheckCircle,
+  LayoutDashboard,
+  Activity,
+  History,
+  Settings,
+} from "lucide-react"
 
 // Types
 type Operation = {
@@ -17,9 +31,29 @@ type Operation = {
   date?: string
 }
 
+type Transfer = {
+  id: number
+  status: string
+  from: {
+    name: string
+    code: string
+    address: string
+    isActive: boolean
+    id: number
+  }
+  to: {
+    name: string
+    code: string
+    address: string
+    isActive: boolean
+    id: number
+  }
+}
+
 // Helper function for status icons
 const getStatusIcon = (status: string) => {
-  switch (status) {
+  const s = (status || "").toLowerCase()
+  switch (s) {
     case "late":
       return <AlertCircle className="h-4 w-4 text-destructive" />
     case "waiting":
@@ -73,37 +107,61 @@ const CardDetails = ({
 const OperationsList = ({ operations }: { operations: Operation[] }) => (
   <div className="grid gap-3">
     <h3 className="text-xl font-semibold text-primary-foreground mb-2">Operations Queue</h3>
-    {operations.map((op) => (
-      <div
-        key={op.id}
-        className="group bg-secondary/30 hover:bg-secondary/50 p-4 rounded-lg border border-border hover:border-primary/50 transition-all flex items-center justify-between"
-      >
-        <div className="flex items-center gap-4">
-          <div className="p-2 rounded-full bg-background/50 border border-border">{getStatusIcon(op.status)}</div>
-          <div>
-            <p className="font-semibold text-primary-foreground">{op.details}</p>
-            <p className="text-sm text-muted-foreground font-mono">
-              {op.id} • {op.date}
-            </p>
-          </div>
-        </div>
-        <span
-          className={cn(
-            "px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase",
-            op.status === "late" && "bg-destructive text-destructive-foreground",
-            op.status === "waiting" && "bg-yellow-500/20 text-yellow-500 border border-yellow-500/50",
-            op.status === "ready" && "bg-green-500/20 text-green-500 border border-green-500/50",
-          )}
+    {operations.map((op) => {
+      const s = (op.status || "").toLowerCase()
+      return (
+        <div
+          key={op.id}
+          className="group bg-secondary/30 hover:bg-secondary/50 p-4 rounded-lg border border-border hover:border-primary/50 transition-all flex items-center justify-between"
         >
-          {op.status}
-        </span>
-      </div>
-    ))}
+          <div className="flex items-center gap-4">
+            <div className="p-2 rounded-full bg-background/50 border border-border">{getStatusIcon(op.status)}</div>
+            <div>
+              <p className="font-semibold text-primary-foreground">{op.details}</p>
+              <p className="text-sm text-muted-foreground font-mono">
+                {op.id} • {op.date}
+              </p>
+            </div>
+          </div>
+          <span
+            className={cn(
+              "px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase",
+              s === "late" && "bg-destructive text-destructive-foreground",
+              s === "waiting" && "bg-yellow-500/20 text-yellow-500 border border-yellow-500/50",
+              s === "ready" && "bg-green-500/20 text-green-500 border border-green-500/50",
+              s === "scheduled" && "bg-primary/20 text-primary",
+            )}
+          >
+            {op.status}
+          </span>
+        </div>
+      )
+    })}
   </div>
 )
 
+// Fetcher function for SWR
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
 export default function InventoryDashboard() {
   const [loading, setLoading] = useState(true)
+
+  const { data: apiTransfers, error } = useSWR<Transfer[]>("http://localhost:8080/api/internal-transfer", fetcher)
+
+  const transfers = apiTransfers || [
+    {
+      from: { name: "Main Warehouse" },
+      to: { name: "North Hub" },
+      status: "READY",
+      id: 1,
+    },
+    {
+      from: { name: "South Storage" },
+      to: { name: "West Backup Warehouse" },
+      status: "SCHEDULED",
+      id: 2,
+    },
+  ]
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -119,32 +177,29 @@ export default function InventoryDashboard() {
 
   const navItems = [
     {
-      label: "Dashboard",
-      bgColor: "#6b4332",
-      textColor: "#f7d6cf",
-      links: [
-        { label: "Overview", href: "#" },
-        { label: "Analytics", href: "#" },
-      ],
+      name: "Dashboard",
+      url: "/",
+      icon: LayoutDashboard,
     },
     {
-      label: "Operations",
-      bgColor: "#a15c48",
-      textColor: "#f7d6cf",
-      links: [
-        { label: "Receipts", href: "#" },
-        { label: "Deliveries", href: "#" },
-        { label: "Adjustments", href: "#" },
-      ],
+      name: "Operations",
+      url: "#",
+      icon: Activity,
     },
     {
-      label: "Stock",
-      bgColor: "#8b5a45",
-      textColor: "#f7d6cf",
-      links: [
-        { label: "Warehouses", href: "#" },
-        { label: "Locations", href: "#" },
-      ],
+      name: "Stock",
+      url: "#",
+      icon: Package,
+    },
+    {
+      name: "Move History",
+      url: "#",
+      icon: History,
+    },
+    {
+      name: "Settings",
+      url: "#",
+      icon: Settings,
     },
   ]
 
@@ -264,7 +319,7 @@ export default function InventoryDashboard() {
     {
       id: 3,
       className: "md:col-span-1",
-      thumbnail: "/warehouse-receiving-dock.jpg",
+      thumbnail: "/warehouse-racks-and-shelves.jpg",
       content: (
         <div className="content-wrapper h-full">
           <div className="summary-view h-full">
@@ -273,41 +328,40 @@ export default function InventoryDashboard() {
               icon={<ArrowRightLeft className="h-6 w-6" />}
               stats={{
                 primary: "Ready & Scheduled",
-                secondary: "2 transfers pending",
+                secondary: `${transfers.length} transfers pending`,
               }}
             />
           </div>
           <div className="detail-view hidden">
             <CardDetails title="Internal Transfers">
               <div className="space-y-4">
-                {[
-                  { from: "Rack 1", to: "Rack 2", status: "ready" },
-                  { from: "Rack 2", to: "Rack 3", status: "scheduled" },
-                ].map((transfer, idx) => (
+                {transfers.map((transfer: any, idx: number) => (
                   <div
                     key={idx}
                     className="bg-secondary/30 p-6 rounded-lg border border-border flex flex-col md:flex-row items-center justify-between gap-4"
                   >
                     <div className="flex items-center gap-6">
                       <div className="px-6 py-3 bg-background rounded-lg text-primary-foreground font-bold border border-border shadow-sm">
-                        {transfer.from}
+                        {transfer.from.name || transfer.from}
                       </div>
                       <ArrowRightLeft className="h-6 w-6 text-primary animate-pulse" />
                       <div className="px-6 py-3 bg-background rounded-lg text-primary-foreground font-bold border border-border shadow-sm">
-                        {transfer.to}
+                        {transfer.to.name || transfer.to}
                       </div>
                     </div>
                     <div className="flex flex-col items-end">
                       <span
                         className={cn(
                           "px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider mb-2",
-                          transfer.status === "ready" ? "bg-green-500/20 text-green-500" : "bg-primary/20 text-primary",
+                          transfer.status?.toUpperCase() === "READY"
+                            ? "bg-green-500/20 text-green-500"
+                            : "bg-primary/20 text-primary",
                         )}
                       >
                         {transfer.status}
                       </span>
                       <span className="text-xs text-muted-foreground">
-                        {transfer.status === "ready" ? "Space available" : "Space to be made"}
+                        {transfer.status?.toUpperCase() === "READY" ? "Space available" : "Space to be made"}
                       </span>
                     </div>
                   </div>
@@ -363,30 +417,21 @@ export default function InventoryDashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
-      <CardNav
-        logo="/icon.png"
-        logoAlt="Inventory Management"
-        items={navItems}
-        className="mb-8 sticky top-0 z-30"
-      />
+      <NavBar items={navItems} className="sticky top-4" />
 
-      <main className="max-w-7xl mx-auto px-4 md:px-10 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 md:px-10 space-y-8 mt-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-primary-foreground tracking-tight">Overview</h1>
-            <p className="text-muted-foreground text-lg">Warehouse Activity Summary</p>
+            <h1 className="text-4xl font-bold text-foreground tracking-tight">Overview</h1>
+            <p className="text-foreground/70 text-lg">Warehouse Activity Summary</p>
           </div>
           <div className="flex items-center gap-2 bg-secondary/30 p-1 rounded-lg border border-border">
-            <button className="px-4 py-2 bg-background rounded-md text-primary-foreground shadow-sm font-medium text-sm">
+            <button className="px-4 py-2 bg-card rounded-md text-primary-foreground shadow-sm font-medium text-sm">
               Today
             </button>
-            <button className="px-4 py-2 text-muted-foreground hover:text-primary-foreground font-medium text-sm">
-              Week
-            </button>
-            <button className="px-4 py-2 text-muted-foreground hover:text-primary-foreground font-medium text-sm">
-              Month
-            </button>
+            <button className="px-4 py-2 text-foreground/70 hover:text-foreground font-medium text-sm">Week</button>
+            <button className="px-4 py-2 text-foreground/70 hover:text-foreground font-medium text-sm">Month</button>
           </div>
         </div>
 
