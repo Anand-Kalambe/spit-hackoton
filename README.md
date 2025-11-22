@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marauders of ML - Inventory Management System (IMS)
 
-## Getting Started
+## Overview
+**Marauders of ML** presents a modular **Inventory Management System (IMS)** designed to digitize and streamline stock-related operations for businesses. The goal is to replace manual registers, Excel sheets, and scattered tracking methods with a centralized, real-time, and easy-to-use application.
 
-First, run the development server:
+This system allows businesses to manage products, incoming and outgoing stock, internal transfers, and stock adjustments efficiently while providing comprehensive reporting and analytics.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Target Users
+- **Inventory Managers:** Manage incoming and outgoing stock, reorders, and stock adjustments.  
+- **Warehouse Staff:** Perform stock transfers, picking, shelving, and counting.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
+- **Frontend:** Next.js  
+- **Backend:** Spring Boot  
+- **Database:** PostgreSQL  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Authentication
+- User signup/login with secure credentials.  
+- OTP-based password reset for account recovery.  
+- After authentication, users are redirected to the Inventory Dashboard.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Dashboard View
+The landing page provides a real-time snapshot of inventory operations.
 
-## Deploy on Vercel
+### Key Performance Indicators (KPIs)
+- Total Products in Stock  
+- Low Stock / Out of Stock Items  
+- Pending Receipts  
+- Pending Deliveries  
+- Scheduled Internal Transfers  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Dynamic Filters
+- Document type: Receipts, Delivery, Internal, Adjustments  
+- Status: Draft, Waiting, Ready, Done, Canceled  
+- Warehouse or location  
+- Product category  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Navigation
+
+### Sidebar Menu
+1. **Products**
+   - Create/update products  
+   - Track stock per location  
+   - Manage product categories  
+   - Define reordering rules  
+2. **Operations**
+   - Receipts (Incoming Stock)  
+   - Delivery Orders (Outgoing Stock)  
+   - Inventory Adjustments  
+   - Move History  
+3. **Dashboard**
+4. **Settings**
+   - Manage warehouses  
+5. **Profile Menu**
+   - My Profile  
+   - Logout  
+
+---
+
+## Core Features
+
+### 1. Product Management
+- Create products with:  
+  - Name  
+  - SKU / Code  
+  - Category  
+  - Unit of Measure  
+  - Initial Stock (optional)  
+
+### 2. Receipts (Incoming Goods)
+- Record incoming stock from vendors.  
+- Steps:
+  1. Create receipt  
+  2. Add supplier & products  
+  3. Input quantities received  
+  4. Validate → stock increases automatically  
+- **Example:** Receive 50 units of “Steel Rods” → Stock +50
+
+### 3. Delivery Orders (Outgoing Goods)
+- Record outgoing stock for customer shipments.  
+- Steps:
+  1. Pick items  
+  2. Pack items  
+  3. Validate → stock decreases automatically  
+- **Example:** Sales order for 10 chairs → Stock –10
+
+### 4. Internal Transfers
+- Move stock internally within the company or across warehouses.  
+- Each transfer is logged in the ledger.  
+- **Example:** Main Warehouse → Production Floor → Stock location updated
+
+### 5. Stock Adjustments
+- Fix mismatches between recorded stock and physical count.  
+- Steps:
+  1. Select product/location  
+  2. Enter counted quantity  
+  3. System auto-updates stock and logs the adjustment  
+
+---
+
+## Additional Features
+- Low stock alerts  
+- Multi-warehouse support  
+- SKU search & smart filters  
+- Full stock ledger for auditing
+
+---
+
+## Example Inventory Flow
+1. **Receive Goods from Vendor**: +100 kg Steel  
+2. **Internal Transfer**: Main Store → Production Rack → Stock location updated  
+3. **Deliver Finished Goods**: Deliver 20 kg Steel → Stock –20  
+4. **Adjust Damaged Items**: 3 kg Steel damaged → Stock –3  
+
+All operations are automatically logged in the **Stock Ledger** for full traceability.
+
+---
+
+## Installation
+
+1. Clone the repository:
