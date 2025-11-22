@@ -1,27 +1,131 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Custom color scheme with brown/copper gradients */
   --background: #44291a;
   --foreground: #a15c48;
   --foreforeground: #f7d6cf;
+
+  --card: #44291a;
+  --card-foreground: #f7d6cf;
+  --popover: #5a3a28;
+  --popover-foreground: #f7d6cf;
+  --primary: #a15c48;
+  --primary-foreground: #f7d6cf;
+  --secondary: #6b4332;
+  --secondary-foreground: #f7d6cf;
+  --muted: #5a3a28;
+  --muted-foreground: #c89b8a;
+  --accent: #a15c48;
+  --accent-foreground: #f7d6cf;
+  --destructive: #d65d4e;
+  --destructive-foreground: #f7d6cf;
+  --border: #6b4332;
+  --input: #5a3a28;
+  --ring: #a15c48;
+  --chart-1: #a15c48;
+  --chart-2: #c89b8a;
+  --chart-3: #8b5a45;
+  --chart-4: #d4a89a;
+  --chart-5: #7d4a36;
+  --radius: 0.625rem;
+  --sidebar: #44291a;
+  --sidebar-foreground: #f7d6cf;
+  --sidebar-primary: #a15c48;
+  --sidebar-primary-foreground: #f7d6cf;
+  --sidebar-accent: #6b4332;
+  --sidebar-accent-foreground: #f7d6cf;
+  --sidebar-border: #6b4332;
+  --sidebar-ring: #a15c48;
+}
+
+.dark {
+  --background: #44291a;
+  --foreground: #f7d6cf;
+  --card: #44291a;
+  --card-foreground: #f7d6cf;
+  --popover: #5a3a28;
+  --popover-foreground: #f7d6cf;
+  --primary: #a15c48;
+  --primary-foreground: #f7d6cf;
+  --secondary: #6b4332;
+  --secondary-foreground: #f7d6cf;
+  --muted: #5a3a28;
+  --muted-foreground: #c89b8a;
+  --accent: #a15c48;
+  --accent-foreground: #f7d6cf;
+  --destructive: #d65d4e;
+  --destructive-foreground: #f7d6cf;
+  --border: #6b4332;
+  --input: #5a3a28;
+  --ring: #a15c48;
+  --chart-1: #a15c48;
+  --chart-2: #c89b8a;
+  --chart-3: #8b5a45;
+  --chart-4: #d4a89a;
+  --chart-5: #7d4a36;
+  --sidebar: #44291a;
+  --sidebar-foreground: #f7d6cf;
+  --sidebar-primary: #a15c48;
+  --sidebar-primary-foreground: #f7d6cf;
+  --sidebar-accent: #6b4332;
+  --sidebar-accent-foreground: #f7d6cf;
+  --sidebar-border: #6b4332;
+  --sidebar-ring: #a15c48;
 }
 
 @theme inline {
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    /* Updated background to a lighter gradient mixture of the 3 theme colors */
+    background: linear-gradient(135deg, #44291a 0%, #a15c48 45%, #f7d6cf 100%);
+    background-attachment: fixed;
+    @apply text-foreground;
+  }
 }
